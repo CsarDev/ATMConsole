@@ -8,20 +8,62 @@ namespace ATMConsole
 {
     class Deposit : TransactionFM
     {
-        private readonly string _transactionType;
-        public Deposit()
+        private int _transactionId;
+        private Int64 _banckAccountNoFrom;
+        private Int64 _banckAccountNoTo;
+        private readonly TransactionType _transactionType;
+        private decimal _transactionAmount;
+        private DateTime _transactionDate;
+
+        public Deposit(Int64 accountNoFrom, Int64 accountNoTo, decimal transaction_amt)
         {
-            _transactionType = "Deposit";
+            _transactionId = 1;
+            _banckAccountNoFrom = accountNoFrom;
+            _banckAccountNoTo = accountNoTo;
+            _transactionType = TransactionType.Deposit;
+            _transactionAmount = transaction_amt;
+            _transactionDate = DateTime.Now;
+             
         }
 
-        public override string TransactionType
+
+        public override int TransactionId { 
+            get { return _transactionId; } 
+        }
+
+        public override Int64 BankAccountNoFrom 
+        { 
+            get { return _banckAccountNoFrom; }
+            set { _banckAccountNoFrom = value; } 
+        }
+
+
+        public override Int64 BankAccountNoTo 
+        { 
+            get { return _banckAccountNoTo; } 
+            set { _banckAccountNoTo = value; } 
+        }
+
+        public override TransactionType TransactionType 
         {
             get { return _transactionType; }
+        }
+        public override decimal TransactionAmount 
+        { 
+            get { return _transactionAmount; } 
+            set { _transactionAmount = value; }
+        }
+
+
+        public override DateTime TransactionDate
+        {
+            get { return _transactionDate; } 
+            set { _transactionDate = value; }
         }
 
         public TransactionFM PlaceDeposit() 
         { 
-            return new Deposit();
+            return null;
         }
          
     }

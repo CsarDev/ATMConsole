@@ -6,6 +6,7 @@ using System.Text;
 using System.Globalization;
 using System.Threading;
 using ConsoleTables;
+using ATMConsole;
 
 namespace MeybankATMSystem
 {
@@ -19,7 +20,7 @@ namespace MeybankATMSystem
         private static decimal transaction_amt;
 
         private static List<BankAccount> _accountList;
-        private static List<Transaction> _listOfTransactions;
+        private static List<TransactionFM> _listOfTransactions;
         private static BankAccount selectedAccount;
         private static BankAccount inputAccount;
 
@@ -37,7 +38,7 @@ namespace MeybankATMSystem
                     case 1:
                         CheckCardNoPassword();
 
-                        _listOfTransactions = new List<Transaction>();
+                        _listOfTransactions = new List<TransactionFM>();
 
                         while (true)
                         {
@@ -198,15 +199,11 @@ namespace MeybankATMSystem
             {
                 // Bind transaction_amt to Transaction object
                 // Add transaction record - Start
-                var transaction = new Transaction()
-                {
-                    BankAccountNoFrom = account.AccountNumber,
-                    BankAccountNoTo = account.AccountNumber,
-                    TransactionType = TransactionType.Deposit,
-                    TransactionAmount = transaction_amt,
-                    TransactionDate = DateTime.Now
-                };
-                InsertTransaction(account, transaction);
+                var factory = new DepositFactory(account.AccountNumber, account.AccountNumber, transaction_amt);
+
+                var depositTransation = factory.GetTransaction();
+
+                InsertTransaction(account, depositTransation);
                 // Add transaction record - End
 
                 // Another method to update account balance.
@@ -238,15 +235,12 @@ namespace MeybankATMSystem
             {
                 // Bind transaction_amt to Transaction object
                 // Add transaction record - Start
-                var transaction = new Transaction()
-                {
-                    BankAccountNoFrom = account.AccountNumber,
-                    BankAccountNoTo = account.AccountNumber,
-                    TransactionType = TransactionType.Withdrawal,
-                    TransactionAmount = transaction_amt,
-                    TransactionDate = DateTime.Now
-                };
-                InsertTransaction(account, transaction);
+
+                var factory = new WithdrawalFactory(account.AccountNumber, account.AccountNumber, transaction_amt);
+
+                var withdrawalTransation = factory.GetTransaction();
+
+                InsertTransaction(account, withdrawalTransation);
                 // Add transaction record - End
 
                 // Another method to update account balance.
@@ -281,15 +275,12 @@ namespace MeybankATMSystem
                 {
                     // Bind transaction_amt to Transaction object
                     // Add transaction record - Start
-                    Transaction transaction = new Transaction()
-                    {
-                        BankAccountNoFrom = bankAccount.AccountNumber,
-                        BankAccountNoTo = vMThirdPartyTransfer.RecipientBankAccountNumber,
-                        TransactionType = TransactionType.ThirdPartyTransfer,
-                        TransactionAmount = vMThirdPartyTransfer.TransferAmount,
-                        TransactionDate = DateTime.Now
-                    };
-                    _listOfTransactions.Add(transaction);
+
+                    var factory = new ThirdPartyTransferFactory(bankAccount.AccountNumber, vMThirdPartyTransfer.RecipientBankAccountNumber, transaction_amt);
+
+                    var withdrawalTransation = factory.GetTransaction();
+
+                    _listOfTransactions.Add(withdrawalTransation);
                     Utility.PrintMessage($"You have successfully transferred out {Utility.FormatAmount(vMThirdPartyTransfer.TransferAmount)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);
                     // Add transaction record - End
 
@@ -342,7 +333,7 @@ namespace MeybankATMSystem
             }
         }
 
-        public void InsertTransaction(BankAccount bankAccount, Transaction transaction)
+        public void InsertTransaction(BankAccount bankAccount, TransactionFM transaction)
         {
             _listOfTransactions.Add(transaction);
         }
