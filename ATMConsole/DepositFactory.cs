@@ -18,7 +18,7 @@ namespace ATMConsole
             _banckAccountNoTo = accountNoTo;
             _transactionAmount = transaction_amt;
         }
-        public override TransactionFM GetTransaction()
+        public override Transaction GetTransaction()
         {
             return new Deposit(_banckAccountNoFrom, _banckAccountNoTo, _transactionAmount);
         }

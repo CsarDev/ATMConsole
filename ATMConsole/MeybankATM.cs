@@ -20,7 +20,7 @@ namespace MeybankATMSystem
         private static decimal transaction_amt;
 
         private static List<BankAccount> _accountList;
-        private static List<TransactionFM> _listOfTransactions;
+        private static List<Transaction> _listOfTransactions;
         private static BankAccount selectedAccount;
         private static BankAccount inputAccount;
 
@@ -38,7 +38,7 @@ namespace MeybankATMSystem
                     case 1:
                         CheckCardNoPassword();
 
-                        _listOfTransactions = new List<TransactionFM>();
+                        _listOfTransactions = new List<Transaction>();
 
                         while (true)
                         {
@@ -333,7 +333,7 @@ namespace MeybankATMSystem
             }
         }
 
-        public void InsertTransaction(BankAccount bankAccount, TransactionFM transaction)
+        public void InsertTransaction(BankAccount bankAccount, Transaction transaction)
         {
             _listOfTransactions.Add(transaction);
         }
