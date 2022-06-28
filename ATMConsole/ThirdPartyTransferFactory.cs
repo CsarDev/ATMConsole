@@ -19,7 +19,7 @@ namespace ATMConsole
             _transactionAmount = transaction_amt;
         }
 
-        public override TransactionFM GetTransaction()
+        public override Transaction GetTransaction()
         {
             return new ThirdPartyTransfer(_banckAccountNoFrom, _banckAccountNoTo, _transactionAmount);
         }

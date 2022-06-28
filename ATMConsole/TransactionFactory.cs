@@ -8,6 +8,6 @@ namespace ATMConsole
 {
     abstract class TransactionFactory
     {
-        public abstract TransactionFM GetTransaction();
+        public abstract Transaction GetTransaction();
     }
 }

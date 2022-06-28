@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATMConsole
 {
-    class Withdrawal : TransactionFM
+    class Withdrawal : Transaction
     {
         private int _transactionId;
         private Int64 _banckAccountNoFrom;
@@ -61,7 +61,7 @@ namespace ATMConsole
             set { _transactionDate = value; }
         }
 
-        public TransactionFM MakeWithdrawal() 
+        public Transaction MakeWithdrawal() 
         { 
             return null;
         }
