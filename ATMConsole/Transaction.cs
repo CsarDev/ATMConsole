@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATMConsole
 {
-    abstract class Transaction
+    public abstract class Transaction
     {
         public abstract int TransactionId { get; }
 
