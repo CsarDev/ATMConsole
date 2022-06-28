@@ -57,9 +57,12 @@ namespace ATMConsole
                             pass = false;
                             tries++;
 
+                            
+                            
                             if (tries >= maxTries)
                             {
-                                selectedAccount.isLocked = true;
+                                selectedAccount.state.CheckState(selectedAccount);
+                                selectedAccount.state.ShowState();
 
                                 LockAccount();
                             }

@@ -11,6 +11,14 @@ namespace ATMConsole
         public decimal Balance { get; set; }
 
         public bool isLocked { get; set; }
+
+        public BankAccountState state;
+
+        public BankAccount(){
+            state = new ActiveState();
+            isLocked = false;
+        }
+        public void changeState(BankAccountState state) { this.state = state; }
     }
 }
 
