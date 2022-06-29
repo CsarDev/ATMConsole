@@ -1,25 +1,32 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Transaction
+namespace ATMConsole
 {
-    public int TransactionId { get; set; }
+    public abstract class Transaction
+    {
+        public abstract int TransactionId { get; }
 
-    public Int64 BankAccountNoFrom { get; set; }
+        public abstract Int64 BankAccountNoFrom { get; set; }
 
+        public abstract Int64 BankAccountNoTo { get; set; }
 
-    public Int64 BankAccountNoTo { get; set; }
+        public abstract TransactionType TransactionType { get; }
 
-    public TransactionType TransactionType { get; set; }
-    public decimal TransactionAmount { get; set; }
+        public abstract decimal TransactionAmount { get; set; }
 
+        public abstract DateTime TransactionDate { get; set; }
 
-    public DateTime TransactionDate { get; set; }
+    }
 
-}
+    public enum TransactionType
+    {
+        Deposit,
+        Withdrawal,
+        ThirdPartyTransfer
+    }
 
-public enum TransactionType
-{
-    Deposit,
-    Withdrawal,
-    ThirdPartyTransfer
 }
